@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reducing Engineering Support Load — Mariia Vasylieva</title>
+<meta name="description" content="Case study: quantifying support load across 9 engineering teams with Python, and redesigning one team's cross-team workflow end-to-end.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+})();
+</script>
+<!-- Analytics: when enabling, paste the same snippets as in index.html here too (see README) -->
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a class="nav-name" href="../">Mariia&nbsp;Vasylieva</a>
+    <div class="nav-links">
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<section class="case-hero">
+  <div class="container" data-stagger>
+    <p class="eyebrow">Form3 · Data + Python + process redesign</p>
+    <h1>Reducing Engineering Support Load</h1>
+    <p class="case-lede">I analysed how 9 engineering teams at Form3 were spending their time on reactive support work. For one team, I redesigned the cross-team request workflow end-to-end, moving from Slack chaos to a GitHub-based system with templates, SLAs, and automation.</p>
+    <div class="glance">
+      <div class="stat">
+        <span class="stat-number"><span class="stat-small">80% →</span> <span data-count-from="80" data-count-to="20" data-count-suffix="%">20%</span></span>
+        <span class="stat-label">one team's engineering time spent on support work, before → after (self-reported)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number"><span data-count-to="4000" data-count-suffix="+">4,000+</span></span>
+        <span class="stat-label">Slack support queries analysed with a Python + Pandas pipeline</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">2 hrs <span class="stat-small">from 2 months</span></span>
+        <span class="stat-label">analysis time per team once the pipeline was built</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>The problem</h2>
+    <div class="prose">
+      <p>Form3 was growing rapidly, and engineering teams kept flagging communication and workflow problems with other teams at retrospectives and team-building events. A previous BA attempt — shadowing team leaders for two weeks — produced some signal, but not enough to act on.</p>
+      <p>My task was to quantify how engineering teams actually spent their time, identify the biggest sources of reactive work, and design changes that would free up engineering capacity.</p>
+    </div>
+  </div>
+</section>
+
+<aside class="pull reveal">
+  <p>The problem was known but unquantified.</p>
+</aside>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>What I did</h2>
+    <div class="prose">
+      <ol class="process">
+        <li>Requested historical support-channel data across 9 engineering teams — 4,000+ Slack queries as the raw dataset.</li>
+        <li>Built a Python + Pandas analysis pipeline to categorise and quantify the support load per team. An engineer's initial script was the starting point; I rewrote and extended it substantially to answer the questions I needed.</li>
+        <li>Identified the biggest team-to-team sources of reactive work.</li>
+        <li>For one team, redesigned the cross-team request workflow end-to-end: replaced ad-hoc Slack requests with a GitHub-based system using templates, SLAs, and automation.</li>
+        <li>Scaled the analysis pipeline itself: the first team took ~2 months of manual work; by the end, each of the remaining 8 teams took ~2 hours to analyse.</li>
+      </ol>
+    </div>
+
+    <figure class="diagram-figure">
+      <svg class="diag" viewBox="0 0 760 360" role="img" aria-label="Before and after diagram: ad-hoc crossing Slack requests from multiple teams, replaced by an ordered GitHub workflow of request template, triage with SLAs, automation, then the engineering team">
+        <text class="t-accent" x="190" y="34" text-anchor="middle">Before — Slack</text>
+        <text class="t-accent" x="570" y="34" text-anchor="middle">After — GitHub</text>
+        <line x1="380" y1="20" x2="380" y2="340" stroke="var(--line)" stroke-width="1.5"/>
+
+        <rect class="node" x="30" y="66" width="112" height="38" rx="10"/>
+        <text x="86" y="90" text-anchor="middle">Team A</text>
+        <rect class="node" x="30" y="150" width="112" height="38" rx="10"/>
+        <text x="86" y="174" text-anchor="middle">Team B</text>
+        <rect class="node" x="30" y="234" width="112" height="38" rx="10"/>
+        <text x="86" y="258" text-anchor="middle">Team C</text>
+
+        <path class="edge edge--chaos draw" pathLength="1" d="M142 85 C 190 110, 200 180, 228 196"/>
+        <path class="edge edge--chaos draw" pathLength="1" d="M142 92 C 200 140, 180 220, 228 214"/>
+        <path class="edge edge--chaos draw" pathLength="1" d="M142 169 C 185 160, 195 205, 228 205"/>
+        <path class="edge edge--chaos draw" pathLength="1" d="M142 176 C 200 210, 190 160, 228 188"/>
+        <path class="edge edge--chaos draw" pathLength="1" d="M142 253 C 190 240, 200 190, 228 212"/>
+        <path class="edge edge--chaos draw" pathLength="1" d="M142 260 C 205 265, 195 230, 228 222"/>
+
+        <rect class="node node--accent" x="228" y="176" width="130" height="60" rx="12"/>
+        <text class="t-strong" x="293" y="200" text-anchor="middle">Engineering</text>
+        <text class="t-strong" x="293" y="220" text-anchor="middle">team</text>
+        <text class="t-muted" x="193" y="320" text-anchor="middle">ad-hoc requests, no queue, no ownership</text>
+
+        <rect class="node" x="480" y="52" width="180" height="40" rx="10"/>
+        <text x="570" y="77" text-anchor="middle">Request template</text>
+        <path class="edge edge--accent draw" pathLength="1" d="M570 92 L570 116"/>
+        <rect class="node" x="480" y="118" width="180" height="40" rx="10"/>
+        <text x="570" y="143" text-anchor="middle">Triage + SLA</text>
+        <path class="edge edge--accent draw" pathLength="1" d="M570 158 L570 182"/>
+        <rect class="node" x="480" y="184" width="180" height="40" rx="10"/>
+        <text x="570" y="209" text-anchor="middle">Automation</text>
+        <path class="edge edge--accent draw" pathLength="1" d="M570 224 L570 248"/>
+        <rect class="node node--accent" x="480" y="250" width="180" height="44" rx="12"/>
+        <text class="t-strong" x="570" y="277" text-anchor="middle">Engineering team</text>
+        <text class="t-muted" x="570" y="320" text-anchor="middle">one queue, clear ownership, tracked</text>
+      </svg>
+      <figcaption>The redesign for one team: ad-hoc Slack requests replaced with a GitHub-based workflow — templates, SLAs, and automation.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>What changed</h2>
+    <div class="prose">
+      <ul>
+        <li class="result-highlight">For the redesigned team, support work dropped from approximately 80% to 20% of engineering time — measured by engineer self-reported time-per-request before and after.</li>
+        <li>The analysis approach became reusable across the department: from 2 months for the first team to 2 hours per team.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<nav class="pager" aria-label="Case study navigation">
+  <div class="container pager-grid">
+    <a class="prev" href="../disaster-recovery/">
+      <span class="dir">← Previous case study</span>
+      <span class="dest">Disaster Recovery Framework</span>
+    </a>
+    <a class="next" href="../planning-system/">
+      <span class="dir">Next case study →</span>
+      <span class="dest">Department-Wide Planning System</span>
+    </a>
+  </div>
+</nav>
+
+</main>
+
+<footer class="site-footer" id="contact" aria-labelledby="contact-heading">
+  <div class="container">
+    <h2 id="contact-heading">Get in touch</h2>
+    <p class="footer-line">If any of this sounds like the kind of help your team needs, I'd love to hear from you.</p>
+    <div class="contact-links">
+      <!-- TODO: replace with your real email address -->
+      <a href="mailto:your.email@example.com">your.email@example.com</a>
+      <!-- TODO: replace with your real LinkedIn URL -->
+      <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn&nbsp;↗</a>
+    </div>
+    <p class="footer-meta">Mariia Vasylieva · Brighton, UK</p>
+  </div>
+</footer>
+
+<script src="../js/vendor/gsap.min.js"></script>
+<script src="../js/vendor/ScrollTrigger.min.js"></script>
+<script src="../js/vendor/lenis.min.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
