@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Department-Wide Planning System — Mariia Vasylieva</title>
+<meta name="description" content="Case study: designing and rolling out a GitHub + AHA! planning and reporting system for a 9-team engineering department.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+})();
+</script>
+<!-- Analytics: when enabling, paste the same snippets as in index.html here too (see README) -->
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a class="nav-name" href="../">Mariia&nbsp;Vasylieva</a>
+    <div class="nav-links">
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<section class="case-hero">
+  <div class="container" data-stagger>
+    <p class="eyebrow">Form3 · Product tooling</p>
+    <h1>Department-Wide Planning System (AHA!&nbsp;+&nbsp;GitHub)</h1>
+    <p class="case-lede">I designed and rolled out a GitHub + AHA! planning system for a 9-team engineering department at Form3, replacing ad-hoc Lucid-based planning with capacity-based estimation, dependency tracking, and leadership reporting. When a later operations hire reviewed the work, it was adopted as the standard.</p>
+    <div class="glance">
+      <div class="stat">
+        <span class="stat-number"><span data-count-to="9">9</span></span>
+        <span class="stat-label">engineering teams planning on one system, matched against capacity in hours</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">2 hrs <span class="stat-small">vs ~1 week</span></span>
+        <span class="stat-label">to answer legal's tax-reporting data request, vs other departments</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number"><span data-count-to="12">12</span> <span class="stat-small">months</span></span>
+        <span class="stat-label">in use as the department's standard, later adopted for additional teams</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>The problem</h2>
+    <div class="prose">
+      <p>A 9-team department planned in Lucid. Estimates were rough and not tied to capacity, and there was no department-level view — so managers could not predict delivery or see dependencies, and there was no consistent way to roll up planning data for reporting.</p>
+      <p>I owned the design and rollout of a new planning and reporting system using GitHub and AHA!, working alongside teams already using both tools.</p>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>What I did</h2>
+    <div class="prose">
+      <ol class="process">
+        <li>Designed the integrated GitHub + AHA! workflow: how work was structured, how estimates were captured (in hours), how capacity was tracked per team, and how data rolled up to department level.</li>
+        <li>Rolled it out across 9 teams, configuring for each team's planning rhythm.</li>
+        <li>Built reports for two audiences: team-level (capacity vs planned work, surfacing over-commitment early) and department-level (a cross-team view of planned work, dependencies, and milestones, used mainly by the Head of Product and project managers).</li>
+        <li>Acted as internal SME for AHA! configuration and governance.</li>
+      </ol>
+    </div>
+
+    <figure class="diagram-figure">
+      <svg class="diag" viewBox="0 0 760 370" role="img" aria-label="Rollup diagram: nine team squares feed into a GitHub plus AHA layer, which produces a team-level report and a department-level report used by leadership">
+        <g>
+          <rect class="node" x="54" y="40" width="62" height="36" rx="9"/>
+          <rect class="node" x="128" y="40" width="62" height="36" rx="9"/>
+          <rect class="node" x="202" y="40" width="62" height="36" rx="9"/>
+          <rect class="node" x="276" y="40" width="62" height="36" rx="9"/>
+          <rect class="node" x="350" y="40" width="62" height="36" rx="9"/>
+          <rect class="node" x="424" y="40" width="62" height="36" rx="9"/>
+          <rect class="node" x="498" y="40" width="62" height="36" rx="9"/>
+          <rect class="node" x="572" y="40" width="62" height="36" rx="9"/>
+          <rect class="node" x="646" y="40" width="62" height="36" rx="9"/>
+        </g>
+        <text class="t-muted" x="380" y="26" text-anchor="middle">9 engineering teams</text>
+
+        <path class="edge draw" pathLength="1" d="M85 76 L 150 138"/>
+        <path class="edge draw" pathLength="1" d="M159 76 L 205 138"/>
+        <path class="edge draw" pathLength="1" d="M233 76 L 262 138"/>
+        <path class="edge draw" pathLength="1" d="M307 76 L 322 138"/>
+        <path class="edge draw" pathLength="1" d="M381 76 L 381 138"/>
+        <path class="edge draw" pathLength="1" d="M455 76 L 440 138"/>
+        <path class="edge draw" pathLength="1" d="M529 76 L 497 138"/>
+        <path class="edge draw" pathLength="1" d="M603 76 L 555 138"/>
+        <path class="edge draw" pathLength="1" d="M677 76 L 610 138"/>
+
+        <rect class="node node--accent" x="120" y="140" width="520" height="52" rx="12"/>
+        <text class="t-strong" x="380" y="166" text-anchor="middle">GitHub + AHA!</text>
+        <text class="t-muted" x="380" y="184" text-anchor="middle">estimates in hours · capacity per team · dependencies</text>
+
+        <path class="edge edge--accent draw" pathLength="1" d="M255 192 L 220 244"/>
+        <path class="edge edge--accent draw" pathLength="1" d="M505 192 L 540 244"/>
+
+        <rect class="node" x="80" y="246" width="280" height="56" rx="12"/>
+        <text class="t-strong" x="220" y="270" text-anchor="middle">Team view</text>
+        <text class="t-muted" x="220" y="290" text-anchor="middle">capacity vs planned · over-commitment</text>
+
+        <rect class="node" x="400" y="246" width="280" height="56" rx="12"/>
+        <text class="t-strong" x="540" y="270" text-anchor="middle">Department view</text>
+        <text class="t-muted" x="540" y="290" text-anchor="middle">cross-team plan · dependencies · milestones</text>
+
+        <text class="t-muted" x="540" y="336" text-anchor="middle">used by the Head of Product &amp; project managers</text>
+      </svg>
+      <figcaption>How planning data rolled up: nine teams' work structured once, reported twice — for teams and for leadership.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<aside class="pull reveal">
+  <p>Overcommitment became visible upfront — instead of after something had already slipped.</p>
+</aside>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>What changed</h2>
+    <div class="prose">
+      <ul>
+        <li class="result-highlight">Concrete proof of the reporting layer: when the legal department requested project-level innovation allocation for tax reporting, my department completed it in ~2 hours — other departments took around a week.</li>
+        <li>Department-level planning visibility that did not exist before: all 9 teams' planned work in one view, matched against capacity in hours.</li>
+        <li>Overcommitment became visible and actionable — caught upfront rather than after slipping, and management had evidence-based capacity data.</li>
+        <li>The system was in use for ~12 months as the department's standard; when an operations team was later hired, they reviewed the workflow and adopted it as the standard for additional engineering teams.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<nav class="pager" aria-label="Case study navigation">
+  <div class="container pager-grid">
+    <a class="prev" href="../support-workload/">
+      <span class="dir">← Previous case study</span>
+      <span class="dest">Reducing Engineering Support Load</span>
+    </a>
+    <a class="next" href="../kyc-configuration/">
+      <span class="dir">Next case study →</span>
+      <span class="dest">KYC Configuration Across 20+ Countries</span>
+    </a>
+  </div>
+</nav>
+
+</main>
+
+<footer class="site-footer" id="contact" aria-labelledby="contact-heading">
+  <div class="container">
+    <h2 id="contact-heading">Get in touch</h2>
+    <p class="footer-line">If any of this sounds like the kind of help your team needs, I'd love to hear from you.</p>
+    <div class="contact-links">
+      <!-- TODO: replace with your real email address -->
+      <a href="mailto:your.email@example.com">your.email@example.com</a>
+      <!-- TODO: replace with your real LinkedIn URL -->
+      <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn&nbsp;↗</a>
+    </div>
+    <p class="footer-meta">Mariia Vasylieva · Brighton, UK</p>
+  </div>
+</footer>
+
+<script src="../js/vendor/gsap.min.js"></script>
+<script src="../js/vendor/ScrollTrigger.min.js"></script>
+<script src="../js/vendor/lenis.min.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
