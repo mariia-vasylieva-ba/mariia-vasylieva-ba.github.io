@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disaster Recovery Framework — Mariia Vasylieva</title>
+<meta name="description" content="Case study: authoring the DR guide that defined Form3's failure scenarios and resilience testing approach.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+})();
+</script>
+<!-- Analytics: when enabling, paste the same snippets as in index.html here too (see README) -->
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a class="nav-name" href="../">Mariia&nbsp;Vasylieva</a>
+    <div class="nav-links">
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<section class="case-hero">
+  <div class="container" data-stagger>
+    <p class="eyebrow">Form3 · Payments infrastructure</p>
+    <h1>Disaster Recovery Framework</h1>
+    <p class="case-lede">I authored the DR guide that defined Form3's failure scenarios and testing approach. Form3 has since publicly reported zero customer impact during two major cloud outages (GCP 2025, AWS October 2025).</p>
+    <div class="glance">
+      <div class="stat">
+        <span class="stat-number">0</span>
+        <span class="stat-label">customer impact Form3 publicly reported across two major 2025 cloud outages</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number"><span data-count-to="2">2</span></span>
+        <span class="stat-label">major outages weathered since — GCP (2025) and AWS US-East-1 (Oct 2025)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">1</span>
+        <span class="stat-label">guide as the single source of truth for DR scenarios and expected behaviour</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>The problem</h2>
+    <div class="prose">
+      <p>Form3's multi-cloud payments platform was still in active development. The system was designed for resilience, but there was no shared, documented view of which failure scenarios mattered, how the system should respond, and what clients should expect. Without that, the team could not test resilience systematically or communicate it to customers.</p>
+      <p>My task was to author the Disaster Recovery User Guide: defining the failure scenarios the platform needed to handle, the system's response to each, and the client-facing plan of action.</p>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>What I did</h2>
+    <div class="prose">
+      <ol class="process">
+        <li>Mapped the full landscape of failure scenarios in a single diagram — infrastructure, network, regional, and provider-level.</li>
+        <li>Ran scenario-by-scenario working sessions with architects and engineers to pressure-test each. Some were already handled; others required new work the engineering team picked up over time.</li>
+        <li>Negotiated which scenarios made the published guide, balancing comprehensiveness with what could honestly be committed to clients.</li>
+        <li>Authored the final guide as the single source of truth for DR scenarios and expected behaviour.</li>
+      </ol>
+    </div>
+
+    <figure class="diagram-figure">
+      <svg class="diag" viewBox="0 0 760 380" role="img" aria-label="Failure scenario map: a central payments platform connected to four scenario categories — infrastructure, network, regional, and provider-level">
+        <path class="edge draw" pathLength="1" d="M310 172 C 260 140, 220 110, 180 100"/>
+        <path class="edge draw" pathLength="1" d="M450 172 C 500 140, 540 110, 580 100"/>
+        <path class="edge draw" pathLength="1" d="M310 208 C 260 240, 220 270, 180 282"/>
+        <path class="edge draw" pathLength="1" d="M450 208 C 500 240, 540 270, 580 282"/>
+
+        <rect class="node node--accent" x="290" y="160" width="180" height="60" rx="14"/>
+        <text class="t-strong" x="380" y="196" text-anchor="middle">Payments platform</text>
+
+        <rect class="node" x="60" y="42" width="200" height="60" rx="12"/>
+        <text class="t-strong" x="160" y="67" text-anchor="middle">Infrastructure</text>
+        <text class="t-muted" x="160" y="88" text-anchor="middle">host &amp; storage failure</text>
+
+        <rect class="node" x="500" y="42" width="200" height="60" rx="12"/>
+        <text class="t-strong" x="600" y="67" text-anchor="middle">Network</text>
+        <text class="t-muted" x="600" y="88" text-anchor="middle">connectivity loss</text>
+
+        <rect class="node" x="60" y="278" width="200" height="60" rx="12"/>
+        <text class="t-strong" x="160" y="303" text-anchor="middle">Regional</text>
+        <text class="t-muted" x="160" y="324" text-anchor="middle">region-wide outage</text>
+
+        <rect class="node" x="500" y="278" width="200" height="60" rx="12"/>
+        <text class="t-strong" x="600" y="303" text-anchor="middle">Provider-level</text>
+        <text class="t-muted" x="600" y="324" text-anchor="middle">cloud provider incident</text>
+      </svg>
+      <figcaption>An illustrative version of the failure-scenario map. The original diagram is Form3-internal and isn't reproduced here.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<aside class="pull reveal">
+  <p>The hard part wasn't listing scenarios — it was negotiating which ones could honestly be committed to clients.</p>
+</aside>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>What changed</h2>
+    <div class="prose">
+      <ul>
+        <li>The guide became the basis for Form3's regular DR testing — engineers simulate outages and validate recovery against the scenarios defined.</li>
+        <li>Form3 has publicly reported zero customer impact during two major cloud outages: a GCP outage earlier in 2025 and the October 2025 AWS US-East-1 outage.</li>
+        <li>The framework continues to underpin Form3's resilience testing approach.</li>
+      </ul>
+    </div>
+    <div class="proof">
+      <p class="proof-label">Externally verifiable</p>
+      <p>Form3 has written publicly about both incidents:</p>
+      <div class="proof-links">
+        <a href="https://www.form3.tech/news/payment-insights/built-for-the-unexpected-form3s-architecture-remains-resilient-amidst-aws-outage" target="_blank" rel="noopener">Form3 on the AWS outage&nbsp;↗</a>
+        <a href="https://www.form3.tech/news/payment-insights/gcp" target="_blank" rel="noopener">Form3 on the GCP outage&nbsp;↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pager" aria-label="Case study navigation">
+  <div class="container pager-grid">
+    <a class="prev" href="../#work">
+      <span class="dir">← Back to</span>
+      <span class="dest">All case studies</span>
+    </a>
+    <a class="next" href="../support-workload/">
+      <span class="dir">Next case study →</span>
+      <span class="dest">Reducing Engineering Support Load</span>
+    </a>
+  </div>
+</nav>
+
+</main>
+
+<footer class="site-footer" id="contact" aria-labelledby="contact-heading">
+  <div class="container">
+    <h2 id="contact-heading">Get in touch</h2>
+    <p class="footer-line">If any of this sounds like the kind of help your team needs, I'd love to hear from you.</p>
+    <div class="contact-links">
+      <!-- TODO: replace with your real email address -->
+      <a href="mailto:your.email@example.com">your.email@example.com</a>
+      <!-- TODO: replace with your real LinkedIn URL -->
+      <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn&nbsp;↗</a>
+    </div>
+    <p class="footer-meta">Mariia Vasylieva · Brighton, UK</p>
+  </div>
+</footer>
+
+<script src="../js/vendor/gsap.min.js"></script>
+<script src="../js/vendor/ScrollTrigger.min.js"></script>
+<script src="../js/vendor/lenis.min.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
