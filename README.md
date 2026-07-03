@@ -1,37 +1,47 @@
-# Mariia Vasylieva — BA Portfolio
+# Mariia Vasylieva — BA Portfolio (v2)
 
-Static site for GitHub Pages. No build step, no dependencies.
+Static multi-page site for GitHub Pages. No build step; the animation libraries are bundled locally so there are no external JS dependencies.
 
-## Files
+## Structure
 
-- `index.html` — all content (hero, 4 case studies, About, footer)
-- `styles.css` — design system (light + warm-dark themes, responsive, reduced-motion support)
-- `main.js` — theme toggle, scroll reveals, tile hover highlight, photo fallback
-- `assets/` — put your portrait photo here
+```
+index.html                      Home: hero, 4 case-study tiles, About, contact
+disaster-recovery/index.html    Case study 1
+support-workload/index.html     Case study 2
+planning-system/index.html      Case study 3
+kyc-configuration/index.html    Case study 4
+styles.css                      Shared design system (light + warm-dark themes)
+js/main.js                      Interactions (theme, smooth scroll, animations)
+js/vendor/                      GSAP, ScrollTrigger, Lenis (bundled, minified)
+assets/mariia.jpg               Portrait (already cropped + optimised)
+```
+
+Case study URLs on the live site: `/disaster-recovery/`, `/support-workload/`, `/planning-system/`, `/kyc-configuration/` — each cleanly shareable in applications.
+
+## What the motion layer does
+
+Smooth inertia scrolling (Lenis), choreographed hero entrances and scroll-triggered section reveals (GSAP + ScrollTrigger), animated stat counters on each case study's "at a glance" strip, diagrams that draw themselves in as you scroll to them, soft page fades between pages in supporting browsers, hover micro-interactions on tiles. Everything is skipped automatically for `prefers-reduced-motion`, and the site works fully with JavaScript disabled (content is pre-rendered).
 
 ## Before pushing — 1 required edit
 
-**Contact details:** in `index.html`, search for `TODO` (two places in the footer) and replace the placeholder email and LinkedIn URL with your real ones.
+**Contact details:** search the project for `TODO` — the footer of every page has the same two placeholders (email and LinkedIn URL). Find-and-replace across all 5 HTML files.
 
-The portrait is already included at `assets/mariia.jpg` (cropped to 4:5 and web-optimised, ~166 KB). To swap it later, just replace that file with any portrait-orientation JPG of the same name.
+## Optional switches (off by default)
+
+**Intro video:** in `index.html`, find the `.video-slot` element in the About section. Delete the `hidden` attribute and put your YouTube video ID in `data-youtube-id` (the part after `watch?v=` in the URL). It renders as a click-to-play thumbnail using youtube-nocookie.com, so no YouTube cookies load until a visitor clicks play.
+
+**Analytics:** `index.html` contains a commented-out block in the `<head>` with ready-to-use snippets for Microsoft Clarity (session recordings, time on page, scroll depth — free) and GoatCounter (simple privacy-friendly visit counts — free, no cookie banner needed). Sign up, replace the placeholder IDs, uncomment, and paste the same enabled snippets into the `<head>` of the four case study pages so visits there are counted too.
 
 ## Deploy
 
-Copy these files into the root of your `mariia-vasylieva-ba.github.io` repo, then:
+Copy everything into the root of your `mariia-vasylieva-ba.github.io` repo:
 
 ```
 git add .
-git commit -m "Portfolio site"
+git commit -m "Portfolio v2: separate case study pages + motion"
 git push
 ```
 
-GitHub Pages serves it automatically at https://mariia-vasylieva-ba.github.io
+## Swapping the photo later
 
-## Deep links
-
-Each case study has a shareable anchor:
-- /#disaster-recovery
-- /#support-workload
-- /#planning-system
-- /#kyc-configuration
-- /#about · /#contact
+Replace `assets/mariia.jpg` with any portrait-orientation JPG of the same name.
