@@ -27,18 +27,54 @@ var GOATCOUNTER_CODE = "defly";
 
   var endpoint = "https://" + GOATCOUNTER_CODE + ".goatcounter.com/count";
 
+  /* ---------- Per-recipient links ----------
+     Send each company or recruiter their own link, e.g.
+       https://mariia-vasylieva-ba.github.io/?r=payuk
+     The label is remembered for the rest of that visit (sessionStorage),
+     so later events say who did them: "ref-payuk", "ref-payuk:read-kyc-configuration".
+     The ?r= part is removed from the address bar before the pageview is
+     counted, so page stats stay clean. Labels: lowercase letters, digits, dashes. */
+  var REF_KEY = "mv-ref";
+  var ref = "";
+  var refIsNew = false;
+  try {
+    var params = new URLSearchParams(location.search);
+    var raw = (params.get("r") || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 40);
+    if (raw) {
+      ref = raw;
+      refIsNew = true;
+      try {
+        refIsNew = sessionStorage.getItem(REF_KEY) !== raw;
+        sessionStorage.setItem(REF_KEY, raw);
+      } catch (e) { /* no storage: still count this open */ }
+      params.delete("r");
+      var rest = params.toString();
+      history.replaceState(null, "", location.pathname + (rest ? "?" + rest : "") + location.hash);
+    } else {
+      ref = sessionStorage.getItem(REF_KEY) || "";
+    }
+  } catch (e) { /* storage blocked or old browser: just no labels */ }
+
   var tag = document.createElement("script");
   tag.async = true;
   tag.src = "https://gc.zgo.at/count.js";
   tag.setAttribute("data-goatcounter", endpoint);
   document.head.appendChild(tag);
 
-  /* Record a named event. Safe to call before count.js has loaded —
-     it simply does nothing rather than throwing. */
-  function track(name, title) {
+  /* Record a named event. If count.js hasn't loaded yet, retry for a few
+     seconds instead of dropping the event; never throws. */
+  function send(name, title, tries) {
     if (window.goatcounter && typeof window.goatcounter.count === "function") {
       window.goatcounter.count({ path: name, title: title || name, event: true });
+    } else if (tries > 0) {
+      setTimeout(function () { send(name, title, tries - 1); }, 500);
     }
+  }
+
+  /* Every event is also recorded with the visitor's label, if they came via a ?r= link. */
+  function track(name, title) {
+    send(name, title, 10);
+    if (ref) send("ref-" + ref + ":" + name, ref + ": " + (title || name), 10);
   }
 
   /* Page slug used to label events, e.g. "/kyc-configuration/" -> "kyc-configuration",
@@ -55,6 +91,11 @@ var GOATCOUNTER_CODE = "defly";
   }
 
   onReady(function () {
+    /* Someone opened a personal link: record it once per visit. */
+    if (ref && refIsNew) {
+      send("ref-" + ref, "Opened link for " + ref + " (" + pageSlug() + ")", 10);
+    }
+
     /* ---------- Contact intent ----------
        These are the events worth knowing about: someone liked the work
        enough to reach out. Neither link unloads the page (mailto hands off

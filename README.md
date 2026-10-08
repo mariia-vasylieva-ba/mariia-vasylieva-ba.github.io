@@ -41,6 +41,7 @@ Until that string is filled in the file does nothing at all — no requests, no 
 - **Pageviews**, with referrer, so you can tell a LinkedIn click from a recruiter following a link in an application.
 - **`contact-email` / `contact-linkedin`** events when someone clicks your email address or LinkedIn link — the signal that the site actually did its job.
 - **`read-<page>`** once a visitor has scrolled through 75% of a page (`read-kyc-configuration`, `read-home`, …), which separates a real read from a bounce.
+- **`ref-<label>`** when someone opens a personal link such as `https://mariia-vasylieva-ba.github.io/?r=payuk` (works on any page). The label sticks for the rest of that visit, so you also get `ref-payuk:read-support-workload`, `ref-payuk:contact-email` and so on. The `?r=` part is stripped from the address bar before the pageview is counted. Use lowercase letters, digits and dashes for labels; one label per company or recruiter.
 
 Events show up under the *Events* tab of the dashboard. Your own local previews are never counted (`localhost` and `file://` are skipped), and visitors who send a Do Not Track header are skipped too.
 
