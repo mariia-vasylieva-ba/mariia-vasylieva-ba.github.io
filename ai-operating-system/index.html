@@ -101,7 +101,7 @@
     <h2>Solution design</h2>
 
     <figure class="diagram-figure">
-      <svg class="diag" viewBox="0 0 760 560" role="img" aria-label="System diagram. I talk by voice to ChatGPT and Claude. Both read and write the brain, a private GitHub repo with Brain, Projects and Workflows folders and a REMINDERS file. A morning update reads my calendar and email. Claude runs the Job Search Agent, which scans job alerts, scores LinkedIn roles, drafts a CV and cover letter, and gets a GPT review; I review and submit. A push to the REMINDERS file runs tests and deploys Junior, a Cloudflare Worker that sends Telegram reminders with a Done button.">
+      <svg class="diag" viewBox="0 0 760 565" role="img" aria-label="System diagram. I talk by voice to ChatGPT and Claude. Both read and write the brain, a private GitHub repo with Brain, Projects and Workflows folders and a REMINDERS file. A morning update reads my calendar and email. Claude runs the Job Search Agent, which scans job alerts, scores LinkedIn roles, drafts a CV and cover letter, and gets a GPT review; I review and submit. A push to the REMINDERS file runs tests and deploys Junior, a Cloudflare Worker that sends Telegram reminders with a Done button.">
         <defs>
           <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0 0 L10 5 L0 10 z" style="fill: var(--muted)"/>
@@ -115,7 +115,7 @@
         <rect class="node node--accent" x="20" y="20" width="190" height="50" rx="12"/>
         <text class="t-strong" x="115" y="41" text-anchor="middle">Me</text>
         <text class="t-muted" x="115" y="59" text-anchor="middle">voice, desktop + phone</text>
-        <path class="edge draw" pathLength="1" d="M115 70 L115 98" marker-end="url(#ah)"/>
+        <path class="edge" d="M115 70 L115 98" marker-end="url(#ah)"/>
 
         <!-- AI assistants -->
         <rect class="node" x="20" y="100" width="190" height="196" rx="14" style="fill: none; stroke-dasharray: 5 5"/>
@@ -130,13 +130,13 @@
         <!-- Calendar + email -->
         <rect class="node" x="20" y="340" width="190" height="40" rx="10"/>
         <text x="115" y="365" text-anchor="middle">Calendar + email</text>
-        <path class="edge draw" pathLength="1" d="M115 340 L115 298" marker-end="url(#ah)"/>
+        <path class="edge" d="M115 340 L115 298" marker-end="url(#ah)"/>
         <text class="t-muted" x="115" y="402" text-anchor="middle">morning update reads these</text>
         <text class="t-muted" x="115" y="418" text-anchor="middle">plus CURRENT_CONTEXT</text>
 
         <!-- AI to brain -->
-        <path class="edge edge--accent draw" pathLength="1" d="M192 152 L263 152" marker-start="url(#aha)" marker-end="url(#aha)"/>
-        <path class="edge edge--accent draw" pathLength="1" d="M192 250 L263 250" marker-start="url(#aha)" marker-end="url(#aha)"/>
+        <path class="edge edge--accent" d="M192 152 L263 152" marker-start="url(#aha)" marker-end="url(#aha)"/>
+        <path class="edge edge--accent" d="M192 250 L263 250" marker-start="url(#aha)" marker-end="url(#aha)"/>
         <text class="t-muted" x="228" y="142" text-anchor="middle">read/write</text>
         <text class="t-muted" x="228" y="240" text-anchor="middle">read/write</text>
 
@@ -160,8 +160,8 @@
         <text class="t-muted" x="380" y="393" text-anchor="middle">source of truth for Junior</text>
 
         <!-- Claude runs the Job Search Agent -->
-        <path class="edge draw" pathLength="1" d="M200 100 C 250 50, 470 50, 538 96" marker-end="url(#ah)"/>
-        <text class="t-muted" x="380" y="52" text-anchor="middle">Claude drafts + applies fixes</text>
+        <path class="edge" d="M175 100 C 230 40, 470 40, 538 96" marker-end="url(#ah)"/>
+        <text class="t-muted" x="380" y="44" text-anchor="middle">Claude drafts + applies fixes</text>
 
         <!-- Job Search Agent -->
         <rect class="node" x="540" y="20" width="210" height="272" rx="14"/>
@@ -179,11 +179,11 @@
         <text class="t-muted" x="645" y="276" text-anchor="middle">I review and submit myself</text>
 
         <!-- Deploy Junior -->
-        <path class="edge edge--accent draw" pathLength="1" d="M380 430 L380 470 C 380 500, 430 505, 538 470" marker-end="url(#aha)"/>
-        <text class="t-muted" x="430" y="530" text-anchor="middle">push → tests + deploy (GitHub Actions)</text>
+        <path class="edge edge--accent" d="M380 430 L380 480 C 380 515, 430 520, 538 480" marker-end="url(#aha)"/>
+        <text class="t-muted" x="400" y="545" text-anchor="middle">push → tests + deploy (GitHub Actions)</text>
 
         <!-- Junior -->
-        <rect class="node" x="540" y="320" width="210" height="172" rx="14"/>
+        <rect class="node" x="540" y="320" width="210" height="200" rx="14"/>
         <text class="t-strong" x="645" y="344" text-anchor="middle">Junior</text>
         <text class="t-muted" x="645" y="362" text-anchor="middle">Cloudflare Worker</text>
         <text class="t-muted" x="645" y="378" text-anchor="middle">every 15 min, state in KV</text>
@@ -192,7 +192,7 @@
         <rect class="node" x="556" y="434" width="178" height="34" rx="9"/>
         <text x="645" y="456" text-anchor="middle">asks again, up to 6×</text>
         <text class="t-muted" x="645" y="484" text-anchor="middle">tap → confirmation to me</text>
-        <text class="t-muted" x="645" y="512" text-anchor="middle">reminders for my husband and me</text>
+        <text class="t-muted" x="645" y="506" text-anchor="middle">for my husband and me</text>
       </svg>
       <figcaption>One brain, two assistants that can check each other, and two tools built on top. The brain is the single source of truth, including for the reminder bot.</figcaption>
     </figure>
@@ -242,7 +242,7 @@
   <div class="container">
     <h2>Iterations and failures</h2>
     <div class="prose">
-      <p>Junior took three versions to become reliable.</p>
+      <p>Junior took three versions to become reliable. I set up the Telegram bot and its token myself, and Claude Code wrote all of its code.</p>
       <ol class="process">
         <li><strong>v0.</strong> A Python bot using FastAPI and ngrok. It only worked while my laptop was on.</li>
         <li><strong>v1.</strong> GitHub Actions on a schedule. I planned about 30 runs a day. In practice it ran three or four times, because scheduled runs were skipped. It also lost a Done button press.</li>
