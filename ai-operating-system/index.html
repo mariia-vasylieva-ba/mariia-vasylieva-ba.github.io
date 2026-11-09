@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Personal AI Operating System · Mariia Vasylieva</title>
+<meta name="description" content="Case study: one shared brain for ChatGPT and Claude, a job search agent adapted from open source, and a reminder bot rebuilt three times until it was reliable.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+})();
+</script>
+<!-- Analytics. Add your GoatCounter code in js/analytics.js to switch it on. -->
+<script src="../js/analytics.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a class="nav-name" href="../">Mariia&nbsp;Vasylieva</a>
+    <div class="nav-links">
+      <a href="../#work">Work</a>
+      <a href="../#about">About</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<section class="case-hero">
+  <div class="container" data-stagger>
+    <p class="eyebrow">Personal project · AI tooling + requirements + iteration</p>
+    <h1>A Personal AI Operating System</h1>
+    <p class="case-lede">I set up one shared "brain" that both ChatGPT and Claude read and write. On top of it I built two tools: a job search agent that tailors and reviews my applications, and a Telegram bot that handles household reminders. I ran it the way I run client work. Pain points first, then requirements, a build or buy decision, and a new version each time the old one failed.</p>
+    <div class="glance">
+      <div class="stat">
+        <span class="stat-number"><span data-count-to="15">15</span> min</span>
+        <span class="stat-label">for two tailored, scored and reviewed applications. One application used to take about an hour.</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number"><span data-count-to="10">10</span></span>
+        <span class="stat-label">applications in the first week with the agent, well above my previous pace</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">£38 <span class="stat-small">a month</span></span>
+        <span class="stat-label">running cost: subscriptions I already had, plus about 9 cents per GPT review</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>The problem</h2>
+    <div class="prose">
+      <p>I use ChatGPT and Claude every day. Each one only knew what I had told it in that chat, so I kept copying the same context from one to the other.</p>
+      <p>At the same time my job search had slowed down. Tailoring one CV took at least 30 minutes, and a full application took about an hour. Researching each company was emotionally draining, and my application pace dropped. A smaller, constant irritation sat alongside it: the same household reminders for my husband and me, over and over.</p>
+      <p>The trigger was a free TechTalk community webinar, where Laurie Wang showed the idea of one shared brain for all your AI tools. I decided to try it, and to treat it like a small product.</p>
+    </div>
+  </div>
+</section>
+
+<aside class="pull reveal">
+  <p>I treated my own admin as a client brief.</p>
+</aside>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>Where things stood</h2>
+    <div class="prose">
+      <ul>
+        <li>Context lived inside separate chat histories. Switching between ChatGPT and Claude meant copying and explaining everything again.</li>
+        <li>Every application was manual: reading the role, tailoring the CV, writing a cover letter and researching the company. About an hour each.</li>
+        <li>Household reminders were repeated by hand.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>Requirements</h2>
+    <div class="prose">
+      <ul>
+        <li>Works with any AI assistant. ChatGPT and Claude now, others later.</li>
+        <li>The same context on desktop and on phone.</li>
+        <li>Not locked inside one tool. The files are mine.</li>
+        <li>No invented experience in any CV or cover letter. Facts come from one place only.</li>
+        <li>An independent second reviewer for anything that goes to an employer.</li>
+        <li>I stay in control. I review and submit every application myself.</li>
+        <li>Reminders arrive with a clear way to mark them done, and keep asking until someone does.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>Solution design</h2>
+
+    <figure class="diagram-figure">
+      <svg class="diag" viewBox="0 0 760 560" role="img" aria-label="System diagram. I talk by voice to ChatGPT and Claude. Both read and write the brain, a private GitHub repo with Brain, Projects and Workflows folders and a REMINDERS file. A morning update reads my calendar and email. Claude runs the Job Search Agent, which scans job alerts, scores LinkedIn roles, drafts a CV and cover letter, and gets a GPT review; I review and submit. A push to the REMINDERS file runs tests and deploys Junior, a Cloudflare Worker that sends Telegram reminders with a Done button.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" style="fill: var(--muted)"/>
+          </marker>
+          <marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" style="fill: var(--accent)"/>
+          </marker>
+        </defs>
+
+        <!-- Me -->
+        <rect class="node node--accent" x="20" y="20" width="190" height="50" rx="12"/>
+        <text class="t-strong" x="115" y="41" text-anchor="middle">Me</text>
+        <text class="t-muted" x="115" y="59" text-anchor="middle">voice, desktop + phone</text>
+        <path class="edge draw" pathLength="1" d="M115 70 L115 98" marker-end="url(#ah)"/>
+
+        <!-- AI assistants -->
+        <rect class="node" x="20" y="100" width="190" height="196" rx="14" style="fill: none; stroke-dasharray: 5 5"/>
+        <text class="t-muted" x="115" y="120" text-anchor="middle">AI assistants, swappable</text>
+        <rect class="node" x="40" y="132" width="150" height="40" rx="10"/>
+        <text x="115" y="157" text-anchor="middle">ChatGPT</text>
+        <text class="t-muted" x="115" y="196" text-anchor="middle">↕ cross-check via</text>
+        <text class="t-muted" x="115" y="212" text-anchor="middle">shared files</text>
+        <rect class="node" x="40" y="230" width="150" height="40" rx="10"/>
+        <text x="115" y="255" text-anchor="middle">Claude</text>
+
+        <!-- Calendar + email -->
+        <rect class="node" x="20" y="340" width="190" height="40" rx="10"/>
+        <text x="115" y="365" text-anchor="middle">Calendar + email</text>
+        <path class="edge draw" pathLength="1" d="M115 340 L115 298" marker-end="url(#ah)"/>
+        <text class="t-muted" x="115" y="402" text-anchor="middle">morning update reads these</text>
+        <text class="t-muted" x="115" y="418" text-anchor="middle">plus CURRENT_CONTEXT</text>
+
+        <!-- AI to brain -->
+        <path class="edge edge--accent draw" pathLength="1" d="M192 152 L263 152" marker-start="url(#aha)" marker-end="url(#aha)"/>
+        <path class="edge edge--accent draw" pathLength="1" d="M192 250 L263 250" marker-start="url(#aha)" marker-end="url(#aha)"/>
+        <text class="t-muted" x="228" y="142" text-anchor="middle">read/write</text>
+        <text class="t-muted" x="228" y="240" text-anchor="middle">read/write</text>
+
+        <!-- Brain -->
+        <rect class="node node--accent" x="265" y="100" width="230" height="330" rx="16"/>
+        <text class="t-strong" x="380" y="126" text-anchor="middle">Brain</text>
+        <text class="t-muted" x="380" y="144" text-anchor="middle">Obsidian vault in a</text>
+        <text class="t-muted" x="380" y="160" text-anchor="middle">private GitHub repo</text>
+
+        <rect class="node" x="280" y="174" width="200" height="50" rx="10"/>
+        <text x="380" y="195" text-anchor="middle">00 Brain</text>
+        <text class="t-muted" x="380" y="213" text-anchor="middle">about me, context, goals</text>
+        <rect class="node" x="280" y="234" width="200" height="50" rx="10"/>
+        <text x="380" y="255" text-anchor="middle">10 Projects</text>
+        <text class="t-muted" x="380" y="273" text-anchor="middle">Bathroom, Job Search, Garden</text>
+        <rect class="node" x="280" y="294" width="200" height="50" rx="10"/>
+        <text x="380" y="315" text-anchor="middle">20 Workflows</text>
+        <text class="t-muted" x="380" y="333" text-anchor="middle">morning, cross-check, review</text>
+        <rect class="node" x="280" y="354" width="200" height="50" rx="10"/>
+        <text x="380" y="375" text-anchor="middle">REMINDERS.yaml</text>
+        <text class="t-muted" x="380" y="393" text-anchor="middle">source of truth for Junior</text>
+
+        <!-- Claude runs the Job Search Agent -->
+        <path class="edge draw" pathLength="1" d="M200 100 C 250 50, 470 50, 538 96" marker-end="url(#ah)"/>
+        <text class="t-muted" x="380" y="52" text-anchor="middle">Claude drafts + applies fixes</text>
+
+        <!-- Job Search Agent -->
+        <rect class="node" x="540" y="20" width="210" height="272" rx="14"/>
+        <text class="t-strong" x="645" y="44" text-anchor="middle">Job Search Agent</text>
+        <text class="t-muted" x="645" y="62" text-anchor="middle">private repo, adapted</text>
+        <text class="t-muted" x="645" y="78" text-anchor="middle">from ai-job-search</text>
+        <rect class="node" x="556" y="92" width="178" height="34" rx="9"/>
+        <text x="645" y="114" text-anchor="middle">Job alerts → top 5</text>
+        <rect class="node" x="556" y="134" width="178" height="34" rx="9"/>
+        <text x="645" y="156" text-anchor="middle">LinkedIn paste → score</text>
+        <rect class="node" x="556" y="176" width="178" height="34" rx="9"/>
+        <text x="645" y="198" text-anchor="middle">/apply: CV + letter</text>
+        <rect class="node" x="556" y="218" width="178" height="34" rx="9"/>
+        <text x="645" y="240" text-anchor="middle">GPT review via API</text>
+        <text class="t-muted" x="645" y="276" text-anchor="middle">I review and submit myself</text>
+
+        <!-- Deploy Junior -->
+        <path class="edge edge--accent draw" pathLength="1" d="M380 430 L380 470 C 380 500, 430 505, 538 470" marker-end="url(#aha)"/>
+        <text class="t-muted" x="430" y="530" text-anchor="middle">push → tests + deploy (GitHub Actions)</text>
+
+        <!-- Junior -->
+        <rect class="node" x="540" y="320" width="210" height="172" rx="14"/>
+        <text class="t-strong" x="645" y="344" text-anchor="middle">Junior</text>
+        <text class="t-muted" x="645" y="362" text-anchor="middle">Cloudflare Worker</text>
+        <text class="t-muted" x="645" y="378" text-anchor="middle">every 15 min, state in KV</text>
+        <rect class="node" x="556" y="392" width="178" height="34" rx="9"/>
+        <text x="645" y="414" text-anchor="middle">Telegram + Done button</text>
+        <rect class="node" x="556" y="434" width="178" height="34" rx="9"/>
+        <text x="645" y="456" text-anchor="middle">asks again, up to 6×</text>
+        <text class="t-muted" x="645" y="484" text-anchor="middle">tap → confirmation to me</text>
+        <text class="t-muted" x="645" y="512" text-anchor="middle">reminders for my husband and me</text>
+      </svg>
+      <figcaption>One brain, two assistants that can check each other, and two tools built on top. The brain is the single source of truth, including for the reminder bot.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h3>1. The brain</h3>
+      <p>An Obsidian vault stored in a private GitHub repo. Both assistants read and write it through their GitHub connectors, so whichever one I open, on desktop or on phone, starts from the same files.</p>
+      <ul>
+        <li><strong>00 Brain</strong> holds who I am and what matters right now: ABOUT_ME, CURRENT_CONTEXT, GOALS, HOW_I_WORK and WEEKLY_PLAN.</li>
+        <li><strong>10 Projects</strong> has one folder per project, such as Bathroom, Job Search, Junior and Garden. Each uses the same files: PROJECT, NEXT, DECISIONS, INVENTORY and LOG.</li>
+        <li><strong>20 Workflows</strong> describes routines. The morning update reads my calendar, email and CURRENT_CONTEXT and gives me a short daily plan. The cross-check lets ChatGPT and Claude review each other's work through shared files, without an API. I used it for my bathroom renovation: the inventory, the decisions and the next steps.</li>
+      </ul>
+      <p>To fill it, I let ChatGPT interview me with the questions from Laurie's guide. Claude then reviewed and restructured the result. These days I mostly talk to both assistants by voice.</p>
+
+      <h3>2. The Job Search Agent</h3>
+      <ul>
+        <li>Adjusted for UK job boards and UK norms.</li>
+        <li>Scans my job-alert emails twice a week and shows a top 5 shortlist. LinkedIn roles I paste in by hand, and they get scored too.</li>
+        <li>The /apply command drafts a tailored CV and cover letter. GPT reviews them as a second reviewer, through GitHub Actions and the OpenAI API. Claude then applies the fixes.</li>
+        <li>Every CV fact comes from one profile file, so nothing can be invented along the way.</li>
+        <li>Every portfolio link in a CV carries a tracking label for that application, so I can see which application led to a visit.</li>
+        <li>A tracker CSV keeps the history. I always review and submit myself.</li>
+      </ul>
+
+      <h3>3. Junior, the reminder bot</h3>
+      <p>I tell any assistant in plain words, for example "remind my husband on Friday at 6pm to order cat food". The reminder arrives in Telegram with a Done button. If nobody taps it, Junior asks again, up to six times. When someone taps it, I get a confirmation. It works for my own reminders too.</p>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>Build or buy</h2>
+    <div class="prose">
+      <p><strong>The brain:</strong> I skipped a tool comparison on purpose. The question was whether a shared brain was worth having at all, and I wanted an answer fast. Obsidian and GitHub were enough to test that, and setup took one working day.</p>
+      <p><strong>The Job Search Agent:</strong> I had a design ready. A fit-scoring agent, a CV-tailoring agent, an independent reviewer, strict checks against invented experience, and two AIs checking each other. Before building it, I looked for existing work and found ai-job-search by Mads Lorentzen, an MIT-licensed project built for the Danish market. I adapted it in a private repo instead of starting from scratch, and kept the original as upstream, as its README recommends. The author commented positively on my LinkedIn post about it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>Iterations and failures</h2>
+    <div class="prose">
+      <p>Junior took three versions to become reliable.</p>
+      <ol class="process">
+        <li><strong>v0.</strong> A Python bot using FastAPI and ngrok. It only worked while my laptop was on.</li>
+        <li><strong>v1.</strong> GitHub Actions on a schedule. I planned about 30 runs a day. In practice it ran three or four times, because scheduled runs were skipped. It also lost a Done button press.</li>
+        <li><strong>v2.</strong> Cloudflare Workers. It wakes every 15 minutes from 7:00 to 22:45 London time, handles the Done button instantly through a webhook, and keeps its state in Cloudflare KV. Reminders live in REMINDERS.yaml in the brain repo. A push runs the tests and deploys through GitHub Actions. The tests replay the schedule on a fake clock, including the clock change and a downtime alert.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<aside class="pull reveal">
+  <p>Planned: about 30 runs a day. Actual: three or four.</p>
+</aside>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>What changed</h2>
+    <div class="prose">
+      <ul>
+        <li class="result-highlight">Two applications tailored, scored and reviewed in 15 minutes. One application used to take about an hour.</li>
+        <li>10 applications in the first week, well above my previous pace, with much less mental load.</li>
+        <li>Both assistants start from the same context on desktop and phone. No more copying between them.</li>
+        <li>Reminders now come with a Done button and a confirmation instead of being repeated by hand. Junior uses about 100 of the 100,000 requests a day on Cloudflare's free tier.</li>
+        <li>I wrote about the build in four LinkedIn posts. The Job Search Agent post got the most engagement.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>Cost</h2>
+    <div class="prose">
+      <p>About £38 a month, all of it subscriptions I already had. On top of that, each GPT review costs about 9 cents. Junior runs on Cloudflare's free tier.</p>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>Risks and limitations</h2>
+    <div class="prose">
+      <ul>
+        <li><strong>Security.</strong> The repo is private and holds no passwords or financial details. I accepted the remaining risk consciously for the experiment, and a proper security review is in my backlog.</li>
+        <li><strong>AI mistakes.</strong> Drafts can be wrong, which is why facts come from one profile file, a second AI reviews every draft, and nothing goes out until I have read it.</li>
+        <li><strong>Manual steps.</strong> LinkedIn roles still have to be pasted in by hand.</li>
+        <li><strong>Timing.</strong> Junior only checks every 15 minutes, and only between 7:00 and 22:45.</li>
+        <li><strong>Sample size.</strong> These results come from one user, me, over a short period.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
+    <h2>What I'd do next</h2>
+    <div class="prose">
+      <ul>
+        <li>Run the security review that is waiting in my backlog.</li>
+        <li>[to confirm] Use the tracking labels and the tracker CSV to measure outcomes, not just pace: which applications lead to portfolio visits and replies.</li>
+        <li>[to confirm] Connect a third assistant to the brain, since it was designed to work with any AI.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<nav class="pager" aria-label="Case study navigation">
+  <div class="container pager-grid">
+    <a class="prev" href="../kyc-configuration/">
+      <span class="dir">← Previous case study</span>
+      <span class="dest">KYC Configuration Across 20+ Countries</span>
+    </a>
+    <a class="next" href="../#work">
+      <span class="dir">Back to →</span>
+      <span class="dest">All case studies</span>
+    </a>
+  </div>
+</nav>
+
+</main>
+
+<footer class="site-footer" id="contact" aria-labelledby="contact-heading">
+  <div class="container">
+    <h2 id="contact-heading">Get in touch</h2>
+    <p class="footer-line">If any of this sounds like the kind of help your team needs, I'd love to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:mariia.vasilyeva@gmail.com">mariia.vasilyeva@gmail.com</a>
+      <a href="https://www.linkedin.com/in/mariia-vasylieva/" target="_blank" rel="noopener">LinkedIn&nbsp;↗</a>
+    </div>
+    <p class="footer-meta">Mariia Vasylieva · Brighton, UK</p>
+  </div>
+</footer>
+
+<script src="../js/vendor/gsap.min.js"></script>
+<script src="../js/vendor/ScrollTrigger.min.js"></script>
+<script src="../js/vendor/lenis.min.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
