@@ -251,6 +251,9 @@ html:not(.js) [data-stagger] > * { opacity: 1; }
   gap: 1.25rem;
 }
 
+/* A full-width tile, used when the number of tiles is odd */
+.tile--wide { grid-column: 1 / -1; }
+
 .tile {
   position: relative;
   display: flex;

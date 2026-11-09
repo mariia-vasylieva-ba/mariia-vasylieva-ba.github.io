@@ -46,15 +46,15 @@
   <div class="container" data-stagger>
     <p class="eyebrow">Personal project · AI tooling + requirements + iteration</p>
     <h1>A Personal AI Operating System</h1>
-    <p class="case-lede">I set up one shared "brain" that both ChatGPT and Claude read and write. On top of it I built two tools: a job search agent that tailors and reviews my applications, and a Telegram bot that handles household reminders. I ran it the way I run client work. Pain points first, then requirements, a build or buy decision, and a new version each time the old one failed.</p>
+    <p class="case-lede">I used AI to cut the time per job application from about an hour to under ten minutes, with checks so it cannot invent experience and with me signing off every application. It runs on one shared "brain" that both ChatGPT and Claude read and write, and the same brain drives a Telegram reminder bot for my household. I ran it the way I run client work: pain points, requirements, a build or buy decision, and a new version each time the old one failed.</p>
     <div class="glance">
       <div class="stat">
         <span class="stat-number"><span data-count-to="15">15</span> min</span>
         <span class="stat-label">for two tailored, scored and reviewed applications. One application used to take about an hour.</span>
       </div>
       <div class="stat">
-        <span class="stat-number"><span data-count-to="10">10</span></span>
-        <span class="stat-label">applications in the first week with the agent, well above my previous pace</span>
+        <span class="stat-number"><span data-count-to="31">31</span></span>
+        <span class="stat-label">applications in October and early November. About as many as in the whole period before the agent.</span>
       </div>
       <div class="stat">
         <span class="stat-number">£38 <span class="stat-small">a month</span></span>
@@ -69,28 +69,15 @@
     <h2>The problem</h2>
     <div class="prose">
       <p>I use ChatGPT and Claude every day. Each one only knew what I had told it in that chat, so I kept copying the same context from one to the other.</p>
-      <p>At the same time my job search had slowed down. Tailoring one CV took at least 30 minutes, and a full application took about an hour. Researching each company was emotionally draining, and my application pace dropped. A smaller, constant irritation sat alongside it: the same household reminders for my husband and me, over and over.</p>
+      <p>At the same time my job search had slowed down. Tailoring one CV took at least 30 minutes, and a full application took about an hour. Researching each company took a lot of energy, and my application pace dropped. A smaller, constant irritation sat alongside it: the same household reminders for my husband and me, over and over.</p>
       <p>The trigger was a free TechTalk community webinar, where Laurie Wang showed the idea of one shared brain for all your AI tools. I decided to try it, and to treat it like a small product.</p>
     </div>
   </div>
 </section>
 
 <aside class="pull reveal">
-  <p>I treated my own admin as a client brief.</p>
+  <p>I treated my own job search as a client brief.</p>
 </aside>
-
-<section class="narrative reveal">
-  <div class="container">
-    <h2>Where things stood</h2>
-    <div class="prose">
-      <ul>
-        <li>Context lived inside separate chat histories. Switching between ChatGPT and Claude meant copying and explaining everything again.</li>
-        <li>Every application was manual: reading the role, tailoring the CV, writing a cover letter and researching the company. About an hour each.</li>
-        <li>Household reminders were repeated by hand.</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
 <section class="narrative reveal">
   <div class="container">
@@ -211,7 +198,18 @@
     </figure>
 
     <div class="prose">
-      <h3>1. The brain</h3>
+      <h3>1. The Job Search Agent: faster, with guardrails</h3>
+      <ul>
+        <li>Adjusted for UK job boards and UK norms.</li>
+        <li>Scans my job-alert emails twice a week and shows a top 5 shortlist. LinkedIn roles I paste in by hand, and they get scored too.</li>
+        <li>The /apply command drafts a tailored CV and cover letter. GPT reviews them as a second reviewer, through GitHub Actions and the OpenAI API. Claude then applies the fixes.</li>
+        <li><strong>Guardrail:</strong> every CV fact comes from one profile file, and the review checks that nothing was invented.</li>
+        <li>Every portfolio link in a CV carries a tracking label for that application, so I can see which application led to a visit.</li>
+        <li>A tracker CSV keeps the history.</li>
+        <li><strong>Guardrail:</strong> nothing is sent automatically. I read, edit and submit every application myself.</li>
+      </ul>
+
+      <h3>2. The shared brain</h3>
       <p>An Obsidian vault stored in a private GitHub repo. Both assistants read and write it through their GitHub connectors, so whichever one I open, on desktop or on phone, starts from the same files.</p>
       <ul>
         <li><strong>00 Brain</strong> holds who I am and what matters right now: ABOUT_ME, CURRENT_CONTEXT, GOALS, HOW_I_WORK and WEEKLY_PLAN.</li>
@@ -220,21 +218,15 @@
       </ul>
       <p>To fill it, I let ChatGPT interview me with the questions from Laurie's guide. Claude then reviewed and restructured the result. These days I mostly talk to both assistants by voice.</p>
 
-      <h3>2. The Job Search Agent</h3>
-      <ul>
-        <li>Adjusted for UK job boards and UK norms.</li>
-        <li>Scans my job-alert emails twice a week and shows a top 5 shortlist. LinkedIn roles I paste in by hand, and they get scored too.</li>
-        <li>The /apply command drafts a tailored CV and cover letter. GPT reviews them as a second reviewer, through GitHub Actions and the OpenAI API. Claude then applies the fixes.</li>
-        <li>Every CV fact comes from one profile file, so nothing can be invented along the way.</li>
-        <li>Every portfolio link in a CV carries a tracking label for that application, so I can see which application led to a visit.</li>
-        <li>A tracker CSV keeps the history. I always review and submit myself.</li>
-      </ul>
-
       <h3>3. Junior, the reminder bot</h3>
       <p>I tell any assistant in plain words, for example "remind my husband on Friday at 6pm to order cat food". The reminder arrives in Telegram with a Done button. If nobody taps it, Junior asks again, up to six times. When someone taps it, I get a confirmation. It works for my own reminders too.</p>
     </div>
   </div>
 </section>
+
+<aside class="pull reveal">
+  <p>AI drafts. A second AI reviews. I decide and submit.</p>
+</aside>
 
 <section class="narrative reveal">
   <div class="container">
@@ -270,20 +262,13 @@
     <div class="prose">
       <ul>
         <li class="result-highlight">Two applications tailored, scored and reviewed in 15 minutes. One application used to take about an hour.</li>
-        <li>10 applications in the first week, well above my previous pace, with much less mental load.</li>
+        <li>31 applications in October and early November, about as many as in the whole period before the agent, with much less mental load.</li>
+        <li>It is too early to say whether the share of applications that turn into interviews has changed. The tracking labels and the tracker CSV are there to answer that.</li>
         <li>Both assistants start from the same context on desktop and phone. No more copying between them.</li>
         <li>Reminders now come with a Done button and a confirmation instead of being repeated by hand. Junior uses about 100 of the 100,000 requests a day on Cloudflare's free tier.</li>
+        <li>Running cost is about £38 a month, all of it subscriptions I already had, plus about 9 cents per GPT review. Junior runs on Cloudflare's free tier.</li>
         <li>I wrote about the build in four LinkedIn posts. The Job Search Agent post got the most engagement.</li>
       </ul>
-    </div>
-  </div>
-</section>
-
-<section class="narrative reveal">
-  <div class="container">
-    <h2>Cost</h2>
-    <div class="prose">
-      <p>About £38 a month, all of it subscriptions I already had. On top of that, each GPT review costs about 9 cents. Junior runs on Cloudflare's free tier.</p>
     </div>
   </div>
 </section>
@@ -305,12 +290,25 @@
 
 <section class="narrative reveal">
   <div class="container">
+    <h2>What carries over to client work</h2>
+    <div class="prose">
+      <ul>
+        <li><strong>Requirements before tools.</strong> I wrote down what the system had to do, and what it must never do, before choosing anything.</li>
+        <li><strong>Check what exists before building.</strong> A search for existing work meant I adapted an open source project instead of writing one from scratch.</li>
+        <li><strong>Plan for how things really fail.</strong> The bot's tests cover the clock change and a downtime alert, because the schedule on paper and what actually ran were very different.</li>
+        <li><strong>People stay accountable for AI output.</strong> One source of facts, an independent reviewer, and a human who signs off.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="narrative reveal">
+  <div class="container">
     <h2>What I'd do next</h2>
     <div class="prose">
       <ul>
         <li>Run the security review that is waiting in my backlog.</li>
-        <li>[to confirm] Use the tracking labels and the tracker CSV to measure outcomes, not just pace: which applications lead to portfolio visits and replies.</li>
-        <li>[to confirm] Connect a third assistant to the brain, since it was designed to work with any AI.</li>
+        <li>Measure outcomes, not just pace. Once enough replies come in, use the tracking labels and the tracker CSV to compare conversion before and after the agent.</li>
       </ul>
     </div>
   </div>
