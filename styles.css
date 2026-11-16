@@ -372,6 +372,14 @@ html:not(.js) [data-stagger] > * { opacity: 1; }
   color: var(--muted);
 }
 
+.stat-number .stat-unit {
+  display: block;
+  font-size: 0.42em;
+  line-height: 1.2;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
 .stat-label {
   font-size: 0.9rem;
   color: var(--muted);
