@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reducing Engineering Support Load — Mariia Vasylieva</title>
-<meta name="description" content="Case study: measuring where 9 engineering teams lost time, then redesigning one team's request workflow — support work fell from 10 developer days a month to 2.">
+<title>Reducing Engineering Support Load · Mariia Vasylieva</title>
+<meta name="description" content="Case study: measuring where 9 engineering teams lost time, then redesigning one team's request workflow. Support work fell from 10 developer days a month to 2.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
@@ -68,7 +68,7 @@
   <div class="container">
     <h2>The problem</h2>
     <div class="prose">
-      <p>Form3 was growing rapidly, and engineering teams kept flagging communication and workflow problems with other teams at retrospectives and team-building events. A previous BA attempt — shadowing team leaders for two weeks — produced some signal, but not enough to act on.</p>
+      <p>Form3 was growing rapidly, and engineering teams kept flagging communication and workflow problems with other teams at retrospectives and team-building events. A previous BA attempt, shadowing team leaders for two weeks, produced some signal, but not enough to act on.</p>
       <p>My task was to quantify how engineering teams actually spent their time, identify the biggest sources of reactive work, and design changes that would free up engineering capacity.</p>
     </div>
   </div>
@@ -83,7 +83,7 @@
     <h2>What I did</h2>
     <div class="prose">
       <ol class="process">
-        <li>Requested historical support-channel data across 9 engineering teams — 4,000+ Slack queries as the raw dataset.</li>
+        <li>Requested historical support-channel data across 9 engineering teams – 4,000+ Slack queries as the raw dataset.</li>
         <li>Built a Python + Pandas analysis pipeline to categorise and quantify the support load per team. An engineer's initial script was the starting point; I rewrote and extended it substantially to answer the questions I needed.</li>
         <li>Identified the biggest team-to-team sources of reactive work.</li>
         <li>For one team, redesigned the cross-team request workflow end-to-end: replaced ad-hoc Slack requests with a GitHub-based system using templates, SLAs, and automation.</li>
@@ -93,8 +93,8 @@
 
     <figure class="diagram-figure">
       <svg class="diag" viewBox="0 0 760 360" role="img" aria-label="Before and after diagram: ad-hoc crossing Slack requests from multiple teams, replaced by an ordered GitHub workflow of request template, triage with SLAs, automation, then the engineering team">
-        <text class="t-accent" x="190" y="34" text-anchor="middle">Before — Slack</text>
-        <text class="t-accent" x="570" y="34" text-anchor="middle">After — GitHub</text>
+        <text class="t-accent" x="190" y="34" text-anchor="middle">Before – Slack</text>
+        <text class="t-accent" x="570" y="34" text-anchor="middle">After – GitHub</text>
         <line x1="380" y1="20" x2="380" y2="340" stroke="var(--line)" stroke-width="1.5"/>
 
         <rect class="node" x="30" y="66" width="112" height="38" rx="10"/>
@@ -129,7 +129,7 @@
         <text class="t-strong" x="570" y="277" text-anchor="middle">Engineering team</text>
         <text class="t-muted" x="570" y="320" text-anchor="middle">one queue, clear ownership, tracked</text>
       </svg>
-      <figcaption>The redesign for one team: ad-hoc Slack requests replaced with a GitHub-based workflow — templates, SLAs, and automation.</figcaption>
+      <figcaption>The redesign for one team: ad-hoc Slack requests replaced with a GitHub-based workflow – templates, SLAs, and automation.</figcaption>
     </figure>
   </div>
 </section>

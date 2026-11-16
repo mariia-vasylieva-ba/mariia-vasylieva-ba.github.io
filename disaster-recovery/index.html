@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Disaster Recovery Framework — Mariia Vasylieva</title>
+<title>Disaster Recovery Framework · Mariia Vasylieva</title>
 <meta name="description" content="Case study: authoring the DR guide that defined Form3's failure scenarios and resilience testing approach.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,7 +54,7 @@
       </div>
       <div class="stat">
         <span class="stat-number"><span data-count-to="2">2</span></span>
-        <span class="stat-label">major outages weathered since — GCP (2025) and AWS US-East-1 (Oct 2025)</span>
+        <span class="stat-label">major outages weathered since – GCP (2025) and AWS US-East-1 (Oct 2025)</span>
       </div>
       <div class="stat">
         <span class="stat-number">1</span>
@@ -79,7 +79,7 @@
     <h2>What I did</h2>
     <div class="prose">
       <ol class="process">
-        <li>Mapped the full landscape of failure scenarios in a single diagram — infrastructure, network, regional, and provider-level.</li>
+        <li>Mapped the full landscape of failure scenarios in a single diagram – infrastructure, network, regional, and provider-level.</li>
         <li>Ran scenario-by-scenario working sessions with architects and engineers to pressure-test each. Some were already handled; others required new work the engineering team picked up over time.</li>
         <li>Negotiated which scenarios made the published guide, balancing comprehensiveness with what could honestly be committed to clients.</li>
         <li>Authored the final guide as the single source of truth for DR scenarios and expected behaviour.</li>
@@ -87,7 +87,7 @@
     </div>
 
     <figure class="diagram-figure">
-      <svg class="diag" viewBox="0 0 760 380" role="img" aria-label="Failure scenario map: a central payments platform connected to four scenario categories — infrastructure, network, regional, and provider-level">
+      <svg class="diag" viewBox="0 0 760 380" role="img" aria-label="Failure scenario map: a central payments platform connected to four scenario categories – infrastructure, network, regional, and provider-level">
         <path class="edge draw" pathLength="1" d="M310 172 C 260 140, 220 110, 180 100"/>
         <path class="edge draw" pathLength="1" d="M450 172 C 500 140, 540 110, 580 100"/>
         <path class="edge draw" pathLength="1" d="M310 208 C 260 240, 220 270, 180 282"/>
@@ -118,7 +118,7 @@
 </section>
 
 <aside class="pull reveal">
-  <p>The hard part wasn't listing scenarios — it was negotiating which ones could honestly be committed to clients.</p>
+  <p>The hard part wasn't listing scenarios – it was negotiating which ones could honestly be committed to clients.</p>
 </aside>
 
 <section class="narrative reveal">
@@ -126,7 +126,7 @@
     <h2>What changed</h2>
     <div class="prose">
       <ul>
-        <li>The guide became the basis for Form3's regular DR testing — engineers simulate outages and validate recovery against the scenarios defined.</li>
+        <li>The guide became the basis for Form3's regular DR testing – engineers simulate outages and validate recovery against the scenarios defined.</li>
         <li>Form3 has publicly reported zero customer impact during two major cloud outages: a GCP outage earlier in 2025 and the October 2025 AWS US-East-1 outage.</li>
         <li>The framework continues to underpin Form3's resilience testing approach.</li>
       </ul>

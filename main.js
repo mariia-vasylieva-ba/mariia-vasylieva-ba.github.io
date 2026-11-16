@@ -1,4 +1,4 @@
-/* Mariia Vasylieva — portfolio interactions */
+/* Mariia Vasylieva · portfolio interactions */
 (function () {
   "use strict";
 

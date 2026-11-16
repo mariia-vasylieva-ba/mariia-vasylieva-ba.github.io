@@ -1,13 +1,13 @@
-/* Mariia Vasylieva — portfolio analytics (GoatCounter)
+/* Mariia Vasylieva · portfolio analytics (GoatCounter)
    Privacy-friendly and cookieless, so the site needs no consent banner.
 
    ─────────────────────────────────────────────────────────────────────
-   SETUP — one step:
+   SETUP – one step:
      1. Make a free account at https://www.goatcounter.com
      2. Put the code you chose there between the quotes below and save.
         If your dashboard is at https://mariia.goatcounter.com,
         your code is "mariia".
-   Until that string is filled in, this file does nothing at all —
+   Until that string is filled in, this file does nothing at all –
    no requests, no errors.
    ───────────────────────────────────────────────────────────────────── */
 var GOATCOUNTER_CODE = "defly";
@@ -102,7 +102,7 @@ var GOATCOUNTER_CODE = "defly";
        to a mail client, LinkedIn opens in a new tab), so the request has
        time to complete.
 
-       Case-study tile clicks are deliberately not tracked — each case study
+       Case-study tile clicks are deliberately not tracked – each case study
        records its own pageview, which says the same thing more reliably. */
     document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
       a.addEventListener("click", function () {

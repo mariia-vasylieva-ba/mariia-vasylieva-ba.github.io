@@ -1,5 +1,5 @@
 /* =========================================================
-   Mariia Vasylieva — portfolio v2
+   Mariia Vasylieva · portfolio v2
    Warm paper + mulberry wine · Fraunces + Karla
    Multi-page: home + 4 case studies
    ========================================================= */
@@ -611,7 +611,7 @@ html:not(.js) [data-stagger] > * { opacity: 1; }
 .portrait.no-photo img { display: none; }
 .portrait.no-photo .portrait-fallback { display: grid; }
 
-/* Intro video slot — hidden until data-youtube-id is filled in */
+/* Intro video slot, hidden until data-youtube-id is filled in */
 .video-slot {
   margin: 0 0 2.5rem;
 }

@@ -1,4 +1,4 @@
-/* Mariia Vasylieva — portfolio v2 interactions
+/* Mariia Vasylieva · portfolio v2 interactions
    Progressive: everything degrades gracefully if GSAP/Lenis fail to load,
    and all motion is skipped under prefers-reduced-motion. */
 (function () {
@@ -206,14 +206,14 @@
         facade.addEventListener("click", function () {
           var iframe = document.createElement("iframe");
           iframe.src = "https://www.youtube-nocookie.com/embed/" + vid + "?autoplay=1";
-          iframe.title = "Intro video — Mariia Vasylieva";
+          iframe.title = "Intro video · Mariia Vasylieva";
           iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
           iframe.setAttribute("allowfullscreen", "");
           facade.replaceWith(iframe);
         });
       }
     } else {
-      slot.hidden = true; // no ID configured yet — keep it out of the page
+      slot.hidden = true; // no ID configured yet – keep it out of the page
     }
   }
 
